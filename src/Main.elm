@@ -1,27 +1,33 @@
 import Browser exposing (Document)
+import Browser.Navigation as Nav
 
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 
 import Http
+import Url
 
 main =
-    Browser.document
+    Browser.application
         { init = init
         , view = view
         , update = update
         , subscriptions = subscriptions
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
         }
 
 type Msg
     = NoOp
+    | UrlChanged Url.Url
+    | LinkClicked Browser.UrlRequest
 
 type Model
     = Ready
 
-init : () -> (Model, Cmd Msg)
-init _ =
+init : () -> Url.Url -> Nav.Key -> (Model, Cmd Msg)
+init flags url key =
     (Ready, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)

@@ -4310,6 +4310,12 @@ function _Browser_load(url)
 		}
 	}));
 }
+var author$project$Main$LinkClicked = function (a) {
+	return {$: 2, a: a};
+};
+var author$project$Main$UrlChanged = function (a) {
+	return {$: 1, a: a};
+};
 var author$project$Main$Ready = 0;
 var elm$core$Basics$False = 1;
 var elm$core$Basics$True = 0;
@@ -4788,9 +4794,10 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 	});
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
-var author$project$Main$init = function (_n0) {
-	return _Utils_Tuple2(0, elm$core$Platform$Cmd$none);
-};
+var author$project$Main$init = F3(
+	function (flags, url, key) {
+		return _Utils_Tuple2(0, elm$core$Platform$Cmd$none);
+	});
 var elm$core$Platform$Sub$batch = _Platform_batch;
 var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
 var author$project$Main$subscriptions = function (model) {
@@ -5125,8 +5132,8 @@ var elm$url$Url$fromString = function (str) {
 		1,
 		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
 };
-var elm$browser$Browser$document = _Browser_document;
-var author$project$Main$main = elm$browser$Browser$document(
-	{aB: author$project$Main$init, aK: author$project$Main$subscriptions, aM: author$project$Main$update, aO: author$project$Main$view});
+var elm$browser$Browser$application = _Browser_application;
+var author$project$Main$main = elm$browser$Browser$application(
+	{aB: author$project$Main$init, aD: author$project$Main$UrlChanged, aE: author$project$Main$LinkClicked, aK: author$project$Main$subscriptions, aM: author$project$Main$update, aO: author$project$Main$view});
 _Platform_export({'Main':{'init':author$project$Main$main(
 	elm$json$Json$Decode$succeed(0))(0)}});}(this));
