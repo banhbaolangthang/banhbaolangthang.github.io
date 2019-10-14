@@ -1,12 +1,13 @@
-import Browser
-import Http
+import Browser exposing (Document)
 
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 
+import Http
+
 main =
-    Browser.element
+    Browser.document
         { init = init
         , view = view
         , update = update
@@ -31,6 +32,8 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
 
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
-    text "Hello world"
+    { title = "Banh bao lang thang"
+    , body = [ div [] [ text "Hello world" ] ]
+    }
