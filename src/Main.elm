@@ -8,6 +8,10 @@ import Html.Attributes exposing (..)
 import Http
 import Url
 
+import Web
+import Home
+import Story
+
 main =
     Browser.application
         { init = init
@@ -22,17 +26,28 @@ type Msg
     = NoOp
     | UrlChanged Url.Url
     | LinkClicked Browser.UrlRequest
+    | HomeMsg Home.Msg
 
-type Model
-    = Ready
+type Page
+    = NotFound Story.Data
+    | Home Home.Model
+
+type alias Model =
+    { page : Page
+    , navKey : Nav.Key
+    }
 
 init : () -> Url.Url -> Nav.Key -> (Model, Cmd Msg)
 init flags url key =
-    (Ready, Cmd.none)
+    ( { page = Home {}
+      , navKey = key
+      }
+    , Cmd.none
+    )
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-    (Ready, Cmd.none)
+    (model, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -40,6 +55,4 @@ subscriptions model =
 
 view : Model -> Document Msg
 view model =
-    { title = "Banh bao lang thang"
-    , body = [ div [] [ text "Hello world" ] ]
-    }
+    Web.view HomeMsg { title = "Banh bao lang thang" } 
