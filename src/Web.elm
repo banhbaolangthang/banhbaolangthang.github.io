@@ -6,14 +6,16 @@ import Html exposing (..)
 import Html.Lazy exposing (..)
 import Html.Attributes exposing (..)
 
-type alias Details = 
+type alias Details msg = 
     { title : String
+    , content : List (Html msg)
     }
 
-view : (a -> msg) -> Details -> Browser.Document msg
+view : (a -> msg) -> Details a -> Browser.Document msg
 view toMsg details =
     { title = details.title
     , body = 
-        [ div [] [ text "Hello world" ]
+        [ Html.map toMsg <|
+            div [ class "main" ] details.content
         ]
     }

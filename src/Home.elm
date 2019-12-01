@@ -24,7 +24,12 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     (model, Cmd.none)
 
-view : Model -> Web.Details
+view : Model -> Web.Details Msg
 view model =
     { title = "Banhbaolangthang - Home"
+    , content =
+        [ div []
+            [ text "Home"
+            ]
+        ]
     }

@@ -31,6 +31,7 @@ type Msg
     | UrlChanged Url.Url
     | LinkClicked Browser.UrlRequest
     | HomeMsg Home.Msg
+    | NotFoundMsg NotFound.Msg
 
 type Page
     = NotFound NotFound.Model
@@ -72,6 +73,11 @@ update msg model =
                 Home home -> stepHome model (Home.update submsg home)
                 _         -> (model, Cmd.none)
 
+        NotFoundMsg submsg ->
+            case model.page of
+                NotFound notFound   -> stepNotFound model (NotFound.update submsg notFound)
+                _                   -> (model, Cmd.none)
+
         NoOp ->
             (model, Cmd.none)
 
@@ -86,7 +92,7 @@ view model =
             Web.view HomeMsg (Home.view home)
 
         NotFound notFound ->
-            Web.view never (NotFound.view notFound)
+            Web.view NotFoundMsg (NotFound.view notFound)
 
 -- router
 
